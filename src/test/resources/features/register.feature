@@ -2,6 +2,17 @@
 Feature: Register
 
   @Register
+  Scenario Outline: Register with empty field
+    Given when user is in the page
+    When user click register link
+    And user click register button
+    Then user got message <result>
+
+    Examples:
+    | result |
+    | Please fill out this field. |
+  
+  @Register
   Scenario Outline: Register with BDD
     Given when user is in the page
     When user click register link
@@ -20,9 +31,9 @@ Feature: Register
     | John Cena | 45 | cenaofficial@gmail.com | 0896555537 | Password#123 | Register Success! |
     | Olatunji | 46 | olatunji@gmail.com | 0878555985 | Password#123 | Your age should be at least around 18 - 45! |
     | Olatunji Olajide olayinka alex william | 21 | ksiofficial@gmail.com | 08965556834 | Password#123 | Field name can only contains 35 characters! |
-    | Simon Minter | 29 | simonminter@yahoo.com | 0819555492 | Password#123 | Your email format should be @gmail.com
-    | Harry | 27 | harrylewis.com | 0854555895 | Password#123 | Your email format should be @gmail.com
-    | Vikstar123 | 21 | test123@gmail.com | 0859555232 | Password#123 | Field name can only contains string
+    | Simon Minter | 29 | simonminter@yahoo.com | 0819555492 | Password#123 | Your email format should be @gmail.com!                                 |
+    | Harry | 27 | harrylewis.com | 0854555895 | Password#123 | Please include '@' in email address!                                               |
+    | Vikstar123 | 21 | test123@gmail.com | 0859555232 | Password#123 | Field name can only contains string!                                          |
     | Joshua     | 31 | joshua@gmail.com  | 081955599  | Password#123 | Your number should be around 10 - 13 characters! |
     | Tobi Brown | 28 | tobibrown@gmail.com | 08115554071 | Password#123 | Register Success!                             |
     | Randy      | 30 | randydolp@gmail.com | 08785558822456 | Password#123 | Your number should be around 10 - 13 characters! |

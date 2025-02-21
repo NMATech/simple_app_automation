@@ -26,6 +26,7 @@ public class registerPage {
     By registerButton = By.id("btnRegister");
     By successRegisterPopup = By.xpath("//section/section/h1[contains(text(), 'Register Success!')]");
     By errorMessage = By.xpath("//*[@id=\"message\"]");
+    By buttonSuccessRegist = By.xpath("//*[@id=\"btnContinue\"]");
 
     public WebDriverWait driverWait(){
         Duration duration = Duration.ofSeconds(5);
@@ -66,10 +67,32 @@ public class registerPage {
         WebElement element = driver.findElement(registerButton);
         element.click();
     }
-    public void userGotErrorMessage(String result){
+    public void userGotErrorMessage(String result, String email){
         WebDriverWait wait = driverWait();
         wait.until(
                 ExpectedConditions.textToBe(errorMessage, result)
         );
+    }
+    public void errorDefaultInputElement(String test){
+        WebDriverWait wait = driverWait();
+        if(test == "Format email"){
+            WebElement emailInput = driver.findElement(inputEmail);
+            String errorMessage = emailInput.getAttribute("validationMessage");
+            wait.until(driver -> !emailInput.getAttribute("validationMessage").isEmpty());
+        } else if(test == "Empty field"){
+            WebElement nameInput = driver.findElement(inputName);
+            wait.until(driver -> !nameInput.getAttribute("validationMessage").isEmpty());
+        }
+    }
+
+    public void userGotSuccessMessage(){
+        Duration duration = Duration.ofSeconds(10);
+        WebDriverWait wait = new WebDriverWait(driver, duration);
+        wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(successRegisterPopup)
+        );
+
+        WebElement element = driver.findElement(buttonSuccessRegist);
+        element.click();
     }
 }

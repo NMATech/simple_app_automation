@@ -60,7 +60,15 @@ public class stepdef extends env {
     @Then("^user got message (.*)$")
     public void userGotMessage(String result){
         registerPage page = new registerPage(driver);
-        page.userGotErrorMessage(result);
+        if(result.equals("Register Success!")){
+            page.userGotSuccessMessage();
+        } else if(result.equals("Please include '@' in email address!")){
+            page.errorDefaultInputElement("Format email");
+        } else if(result.equals("Please fill out this field.")){
+          page.errorDefaultInputElement("Empty field");
+        } else {
+            page.userGotErrorMessage(result, null);
+        }
     }
 
     @And("user click register button")
